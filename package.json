@@ -1,0 +1,59 @@
+{
+  "name": "mr-rating.js",
+  "description": "A zero-dependency library that transforms a `<select>` HTML Element into a dynamic rating indicator.",
+  "version": "1.1.0",
+  "author": "Serhii Babakov <marmot.webdev@gmail.com>",
+  "homepage": "https://github.com/marmot-webdev/mr-rating.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marmot-webdev/mr-rating.js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/marmot-webdev/mr-rating.js/issues"
+  },
+  "keywords": [
+    "rating",
+    "star rating",
+    "star",
+    "5 stars",
+    "select box",
+    "rating indicator",
+    "rating component",
+    "rating widget",
+    "vanilla js"
+  ],
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/mr-rating.esm.js",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "exports": {
+    ".": {
+      "require": "./dist/mr-rating.cjs.js",
+      "import": "./dist/mr-rating.esm.js",
+      "default": "./dist/mr-rating.esm.js"
+    },
+    "./src/": "./src/",
+    "./dist/": "./dist/",
+    "./css": "./dist/mr-rating.css",
+    "./cssmin": "./dist/mr-rating.min.css",
+    "./sass": "./src/index.scss",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "rollup -c --environment NODE_ENV:production",
+    "dev": "rollup -c -w --environment NODE_ENV:development"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.12",
+    "@babel/preset-env": "^7.20.2",
+    "@rollup/plugin-babel": "^6.0.3",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-terser": "^0.4.0",
+    "rollup": "^3.10.1",
+    "rollup-plugin-postcss": "^4.0.2",
+    "sass": "^1.57.1"
+  }
+}

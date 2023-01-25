@@ -1,0 +1,92 @@
+$rating-prefix: "mr-" !default;
+$rating-selector: "mr-rating" !default;
+$rating-tooltip: false !default;
+$generate-visually-hidden-utility: true !default;
+
+:root {
+  --#{$rating-prefix}icon-gap: .125rem;
+  --#{$rating-prefix}icon-color: #fc0;
+  --#{$rating-prefix}icon-size: 1.5rem;
+  --#{$rating-prefix}icon-transition: fill .2s;
+
+  @if $rating-tooltip {
+    --#{$rating-prefix}tooltip-border-radius: .3em;
+    --#{$rating-prefix}tooltip-bg: #000;
+    --#{$rating-prefix}tooltip-color: #fff;
+    --#{$rating-prefix}tooltip-font-size: .875rem;
+    --#{$rating-prefix}tooltip-text-transform: uppercase;
+  }
+}
+
+// Base styles
+.#{$rating-selector} {
+  display: inline-grid;
+  gap: var(--#{$rating-prefix}icon-gap);
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+  color: var(--#{$rating-prefix}icon-color);
+  font-size: var(--#{$rating-prefix}icon-size);
+
+  &[aria-orientation="horizontal"] {
+    grid-template-columns: repeat(var(--n), 1fr);
+  }
+
+  select:focus + & {
+    outline: 1px auto Highlight;
+    outline: 1px auto -webkit-focus-ring-color;
+  }
+}
+
+.#{$rating-prefix}icon {
+  display: block;
+  width: 1em;
+  height: 1em;
+  fill: transparent;
+  transition: var(--#{$rating-prefix}icon-transition);
+  cursor: pointer;
+
+  .active > & {
+    fill: currentColor;
+  }
+}
+
+// Optional styles
+@if $rating-tooltip {
+  .#{$rating-selector}[data-tooltip] {
+    position: relative;
+
+    &::after {
+      position: absolute;
+      top: 50%;
+      left: calc(100% + 1em);
+      border-radius: var(--#{$rating-prefix}tooltip-border-radius);
+      background-color: var(--#{$rating-prefix}tooltip-bg);
+      color: var(--#{$rating-prefix}tooltip-color);
+      padding: .5em 1em .5em 1.625em;
+      font-size: var(--#{$rating-prefix}tooltip-font-size);
+      font-weight: 400;
+      line-height: 1;
+      text-transform: var(--#{$rating-prefix}tooltip-text-transform);
+      text-align: center;
+      white-space: nowrap;
+      transform: translateY(-50%);
+      clip-path: polygon(1em 0%, 100% 0%, 100% 100%, 1em 100%, 0% 50%);
+      content: attr(data-tooltip);
+    }
+  }
+}
+
+@if $generate-visually-hidden-utility {
+  .visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+}

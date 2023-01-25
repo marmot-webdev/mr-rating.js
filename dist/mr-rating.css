@@ -1,0 +1,47 @@
+:root {
+  --mr-icon-gap: .125rem;
+  --mr-icon-color: #fc0;
+  --mr-icon-size: 1.5rem;
+  --mr-icon-transition: fill .2s;
+}
+
+.mr-rating {
+  display: inline-grid;
+  gap: var(--mr-icon-gap);
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+  color: var(--mr-icon-color);
+  font-size: var(--mr-icon-size);
+}
+.mr-rating[aria-orientation=horizontal] {
+  grid-template-columns: repeat(var(--n), 1fr);
+}
+select:focus + .mr-rating {
+  outline: 1px auto Highlight;
+  outline: 1px auto -webkit-focus-ring-color;
+}
+
+.mr-icon {
+  display: block;
+  width: 1em;
+  height: 1em;
+  fill: transparent;
+  transition: var(--mr-icon-transition);
+  cursor: pointer;
+}
+.active > .mr-icon {
+  fill: currentColor;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
