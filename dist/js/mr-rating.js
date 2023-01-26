@@ -1,6 +1,6 @@
 /**!
  * mr-rating.js
- * @version: 1.0.0
+ * @version: 1.2.0
  * @author: Serhii Babakov <marmot.webdev@gmail.com>
  * @url: https://github.com/marmot-webdev/mr-rating.js
  * @license: MIT

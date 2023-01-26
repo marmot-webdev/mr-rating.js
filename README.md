@@ -11,6 +11,7 @@ It is a lightweight JavaScript library that transforms a `<select>` HTML Element
 - [Methods](#methods)
 - [Build](#build)
 - [Style customization](#style-customization)
+- [Task list](#task-list)
 - [Compatibility](#compatibility)
 - [Copyright and license](#copyright-and-license)
 - [Changelog](#changelog)
@@ -44,7 +45,7 @@ You can also download the [latest release on GitHub](https://github.com/marmot-w
 ```html
 <link rel="stylesheet" href="css/mr-rating.min.css">
 
-<select class="js-rating">
+<select class="visually-hidden js-rating">
   <option value="">Select a rating</option>
   <option value="1">Bad</option>
   <option value="2">Poor</option>
@@ -134,7 +135,7 @@ An icon to use as ranking symbol, typically a star. If you need to display uniqu
 
 ```js
 const star = `
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" class="mr-icon mr-icon-star">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" class="mr-icon">
     <path d="M923,415,707,611,766,897,512,753,258,897,317,611,101,415,392,382,512,116,632,382Z" stroke="currentColor" stroke-width="64"></path>
   </svg>
 `;
@@ -152,6 +153,7 @@ Default: `null`
 This option can be used to transform rating items, for example, to change their content by adding unique icons.
 
 ```js
+// The length of this array must equal the number of stars
 const emojis = [
   '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="icon-frowning-face">...</svg>',
   '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="icon-neutral-face">...</svg>',
@@ -170,14 +172,14 @@ const rating = new Rating('.js-rating', {
 Type: `String`\
 Default: `'Rating'`
 
-A value used for the `aria-label` attribute. Can also be set via the `aria-label` / `data-label` attribute on the `<select>` element.
+A value used for the [aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label) attribute. Can also be set via the `aria-label` / `data-label` attribute on the `<select>` element.
 
 ### orientation
 
 Type: `String`\
 Default: `'horizontal'`
 
-A value used for the `aria-orientation` attribute. Can also be set via the `data-orientation` attribute on the `<select>` element.
+A value used for the [aria-orientation](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-orientation) attribute. Can also be set via the `data-orientation` attribute on the `<select>` element.
 
 ### tooltip:
 
@@ -228,11 +230,11 @@ This event is fired when a rating is reset to the initial state.
 
 ## Methods
 
-| Method                    | Description                                        |
-|---------------------------|----------------------------------------------------|
-|`instance.destroy()`       | Destroys instance and removes all event listeners. |
-|`instance.rebuild()`       | Rebuilds all rating controls.                      |
-|`instance.reset()`         | Returns to the initial state.                      |
+| Method                    | Description                                         |
+|---------------------------|-----------------------------------------------------|
+|`instance.destroy()`       | Destroys instances and removes all event listeners. |
+|`instance.rebuild()`       | Rebuilds all rating controls.                       |
+|`instance.reset()`         | Returns to the initial state.                       |
 
 To set a new value:
 
@@ -253,7 +255,7 @@ select.disabled = true; // or `false`
 To disallow a user to clear a rating by clicking on an already selected star, just add the `disabled` attribute to the option with an empty value:
 
 ```html
-<select class="js-rating">
+<select class="visually-hidden js-rating">
   <option value="" disabled>Select a rating</option>
   <option value="1">Bad</option>
   <option value="2">Poor</option>
@@ -263,10 +265,10 @@ To disallow a user to clear a rating by clicking on an already selected star, ju
 </select>
 ```
 
-The *initial rating value* is determined by which select option has the `selected` attribute set:
+The *initial* rating value is determined by which select option has the `selected` attribute set:
 
 ```html
-<select class="js-rating">
+<select class="visually-hidden js-rating">
   <option value="">Select a rating</option>
   <option value="1">Bad</option>
   <option value="2">Poor</option>
@@ -299,31 +301,55 @@ The compiled files will be saved in the `dist` folder.
 This library uses Sass variables and custom properties for its styling. Here are the default values:
 
 ```scss
-$rating-prefix: "mr-" !default;
-$rating-selector: "mr-rating" !default;
-$rating-tooltip: false !default;
-$generate-visually-hidden-utility: true !default; // if `false`, you must provide your own class to hide a select box
+// Sass
+$mr-rating: (
+  "enable-tooltip": false,
+  "enable-visually-hidden": true, // if `false`, you must provide your own class to hide a select box
+  "cssvar-prefix": "mr-",
+  "selectors": (
+    "container": ".mr-rating",
+    "icon": ".mr-icon",
+  ),
+  "icon": (
+    "gap": .125rem,
+    "size": 1.5rem,
+    "color": #fc0,
+    "transition": fill .2s,
+  ),
+  "tooltip": (
+    "padding": .5em 1em .5em 1.625em,
+    "border-radius": .3em,
+    "background-color": #000,
+    "color": #fff,
+    "font-size": .875rem,
+    "text-transform": uppercase,
+  )
+);
 
+// CSS
 :root {
-  --#{$rating-prefix}icon-gap: .125rem;
-  --#{$rating-prefix}icon-color: #fc0;
-  --#{$rating-prefix}icon-size: 1.5rem;
-  --#{$rating-prefix}icon-transition: fill .2s;
-
-  @if $rating-tooltip {
-    --#{$rating-prefix}tooltip-border-radius: .3em;
-    --#{$rating-prefix}tooltip-bg: #000;
-    --#{$rating-prefix}tooltip-color: #fff;
-    --#{$rating-prefix}tooltip-font-size: .875rem;
-    --#{$rating-prefix}tooltip-text-transform: uppercase;
-  }
+  --mr-icon-gap: 0.125rem;
+  --mr-icon-size: 1.5rem;
+  --mr-icon-color: #fc0;
+  --mr-icon-transition: fill 0.2s;
+  --mr-tooltip-padding: 0.5em 1em 0.5em 1.625em;
+  --mr-tooltip-border-radius: 0.3em;
+  --mr-tooltip-background-color: #000;
+  --mr-tooltip-color: #fff;
+  --mr-tooltip-font-size: 0.875rem;
+  --mr-tooltip-text-transform: uppercase;
 }
 ```
 
 To override Sass variables, just set new values _before_ importing the SCSS file.
 
 ```scss
-$rating-tooltip: true;
+$mr-rating: (
+  "enable-tooltip": true,
+  "icon": (
+    "size": 2rem
+  )
+);
 
 @import 'mr-rating.js/sass';
 ```
@@ -331,12 +357,26 @@ $rating-tooltip: true;
 To override CSS variables, enter new values _after_ the import.
 
 ```scss
+// Using Sass
 @import 'mr-rating.js/sass';
 
+.rating-container {
+  --#{map-get($mr-rating, "cssvar-prefix")}tooltip-font-size: 1rem;
+}
+
+// Using regular CSS (either at the global or at the local level)
+@import 'mr-rating.js/css';
+
 :root {
-  --#{$rating-prefix}icon-gap: .5rem;
+  --mr-icon-color: #f79700;
 }
 ```
+
+## Task list
+
+- [ ] Add a demo page
+- [ ] Add a rating placeholder to prevent layout shift
+- [ ] Add RTL support
 
 ## Compatibility
 
@@ -349,6 +389,12 @@ Copyright (c) 2023—present, Serhii Babakov.
 The library is [licensed](/LICENSE) under [The MIT License](https://opensource.org/licenses/MIT).
 
 ## Changelog
+
+`v1.2.0 - [2023-01-26]`
+
+- Optimized project structure
+- Improved style customization
+- Slightly updated documentation
 
 `v1.1.0 - [2023-01-25]`
 

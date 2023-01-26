@@ -1,7 +1,7 @@
 {
   "name": "mr-rating.js",
   "description": "A zero-dependency library that transforms a `<select>` HTML Element into a dynamic rating indicator.",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "author": "Serhii Babakov <marmot.webdev@gmail.com>",
   "homepage": "https://github.com/marmot-webdev/mr-rating.js",
   "repository": {
@@ -24,22 +24,22 @@
   ],
   "license": "MIT",
   "type": "module",
-  "main": "./dist/mr-rating.esm.js",
+  "main": "./dist/js/mr-rating.esm.js",
   "files": [
     "dist",
     "src"
   ],
   "exports": {
     ".": {
-      "require": "./dist/mr-rating.cjs.js",
-      "import": "./dist/mr-rating.esm.js",
-      "default": "./dist/mr-rating.esm.js"
+      "require": "./dist/js/mr-rating.cjs.js",
+      "import": "./dist/js/mr-rating.esm.js",
+      "default": "./dist/js/mr-rating.esm.js"
     },
     "./src/": "./src/",
     "./dist/": "./dist/",
-    "./css": "./dist/mr-rating.css",
-    "./cssmin": "./dist/mr-rating.min.css",
-    "./sass": "./src/index.scss",
+    "./css": "./dist/css/mr-rating.css",
+    "./cssmin": "./dist/css/mr-rating.min.css",
+    "./sass": "./src/scss/index.scss",
     "./package.json": "./package.json"
   },
   "scripts": {

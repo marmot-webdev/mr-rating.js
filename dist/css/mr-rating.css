@@ -1,8 +1,8 @@
 :root {
-  --mr-icon-gap: .125rem;
-  --mr-icon-color: #fc0;
+  --mr-icon-gap: 0.125rem;
   --mr-icon-size: 1.5rem;
-  --mr-icon-transition: fill .2s;
+  --mr-icon-color: #fc0;
+  --mr-icon-transition: fill 0.2s;
 }
 
 .mr-rating {
@@ -13,6 +13,7 @@
   list-style: none;
   color: var(--mr-icon-color);
   font-size: var(--mr-icon-size);
+  vertical-align: middle;
 }
 .mr-rating[aria-orientation=horizontal] {
   grid-template-columns: repeat(var(--n), 1fr);

@@ -1,0 +1,29 @@
+$mr-rating: () !default;
+
+$mr-rating: map-extend(
+  (
+    "enable-tooltip": false,
+    "enable-visually-hidden": true,
+    "cssvar-prefix": "mr-",
+    "selectors": (
+      "container": ".mr-rating",
+      "icon": ".mr-icon",
+    ),
+    "icon": (
+      "gap": .125rem,
+      "size": 1.5rem,
+      "color": #fc0,
+      "transition": fill .2s,
+    ),
+    "tooltip": (
+      "padding": .5em 1em .5em 1.625em,
+      "border-radius": .3em,
+      "background-color": #000,
+      "color": #fff,
+      "font-size": .875rem,
+      "text-transform": uppercase,
+    )
+  ),
+  $mr-rating,
+  true
+);

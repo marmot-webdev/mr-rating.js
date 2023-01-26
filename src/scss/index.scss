@@ -1,0 +1,88 @@
+@import "./functions";
+@import "./variables";
+
+:root {
+  @each $property in ("gap", "size", "color", "transition") {
+    --#{map-get($mr-rating, "cssvar-prefix")}icon-#{$property}: #{map-deep-get($mr-rating, "icon", $property)};
+  }
+
+  @if map-get($mr-rating, "enable-tooltip") {
+    @each $property in ("padding", "border-radius", "background-color", "color", "font-size", "text-transform") {
+      --#{map-get($mr-rating, "cssvar-prefix")}tooltip-#{$property}: #{map-deep-get($mr-rating, "tooltip", $property)};
+    }
+  }
+}
+
+// Base styles
+#{map-deep-get($mr-rating, "selectors", "container")} {
+  display: inline-grid;
+  gap: var(--#{map-get($mr-rating, "cssvar-prefix")}icon-gap);
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+  color: var(--#{map-get($mr-rating, "cssvar-prefix")}icon-color);
+  font-size: var(--#{map-get($mr-rating, "cssvar-prefix")}icon-size);
+  vertical-align: middle;
+
+  &[aria-orientation="horizontal"] {
+    grid-template-columns: repeat(var(--n), 1fr);
+  }
+
+  select:focus + & {
+    outline: 1px auto Highlight;
+    outline: 1px auto -webkit-focus-ring-color;
+  }
+}
+
+#{map-deep-get($mr-rating, "selectors", "icon")} {
+  display: block;
+  width: 1em;
+  height: 1em;
+  fill: transparent;
+  transition: var(--#{map-get($mr-rating, "cssvar-prefix")}icon-transition);
+  cursor: pointer;
+
+  .active > & {
+    fill: currentColor;
+  }
+}
+
+// Optional styles
+@if map-get($mr-rating, "enable-tooltip") {
+  #{map-deep-get($mr-rating, "selectors", "container")}[data-tooltip] {
+    position: relative;
+
+    &::after {
+      position: absolute;
+      top: 50%;
+      left: calc(100% + 1em);
+      padding: var(--#{map-get($mr-rating, "cssvar-prefix")}tooltip-padding);
+      border-radius: var(--#{map-get($mr-rating, "cssvar-prefix")}tooltip-border-radius);
+      background-color: var(--#{map-get($mr-rating, "cssvar-prefix")}tooltip-background-color);
+      color: var(--#{map-get($mr-rating, "cssvar-prefix")}tooltip-color);
+      font-size: var(--#{map-get($mr-rating, "cssvar-prefix")}tooltip-font-size);
+      font-weight: 400;
+      line-height: 1;
+      text-align: center;
+      text-transform: var(--#{map-get($mr-rating, "cssvar-prefix")}tooltip-text-transform);
+      white-space: nowrap;
+      transform: translateY(-50%);
+      clip-path: polygon(1em 0%, 100% 0%, 100% 100%, 1em 100%, 0% 50%);
+      content: attr(data-tooltip);
+    }
+  }
+}
+
+@if map-get($mr-rating, "enable-visually-hidden") {
+  .visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+}

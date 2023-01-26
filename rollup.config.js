@@ -2,33 +2,33 @@ import babel from '@rollup/plugin-babel';
 import postcss from 'rollup-plugin-postcss';
 import resolve from '@rollup/plugin-node-resolve';
 import terser from '@rollup/plugin-terser';
-import banner from './src/banner.js';
+import banner from './banner.js';
 
 const NAME = 'Rating';
 const FILENAME = 'mr-rating';
 
 export default [
   {
-    input: 'src/index.js',
+    input: 'src/js/index.js',
     output: [
       {
-        file: `dist/${FILENAME}.esm.js`,
+        file: `dist/js/${FILENAME}.esm.js`,
         format: 'es'
       },
       {
-        file: `dist/${FILENAME}.cjs.js`,
+        file: `dist/js/${FILENAME}.cjs.js`,
         format: 'cjs'
       },
       {
         banner: banner,
         name: NAME,
-        file: `dist/${FILENAME}.js`,
+        file: `dist/js/${FILENAME}.js`,
         format: 'iife'
       },
       {
         banner: banner,
         name: NAME,
-        file: `dist/${FILENAME}.min.js`,
+        file: `dist/js/${FILENAME}.min.js`,
         format: 'iife',
         plugins: [terser()]
       }
@@ -46,9 +46,9 @@ export default [
     ]
   },
   {
-    input: 'src/index.scss',
+    input: 'src/scss/index.scss',
     output: {
-      file: `dist/${FILENAME}.css`,
+      file: `dist/css/${FILENAME}.css`,
     },
     plugins: [
       postcss({
@@ -57,9 +57,9 @@ export default [
     ]
   },
   {
-    input: 'src/index.scss',
+    input: 'src/scss/index.scss',
     output: {
-      file: `dist/${FILENAME}.min.css`
+      file: `dist/css/${FILENAME}.min.css`
     },
     plugins: [
       postcss({

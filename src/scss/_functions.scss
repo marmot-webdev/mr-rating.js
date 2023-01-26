@@ -1,0 +1,32 @@
+// https://www.sitepoint.com/extra-map-functions-sass/
+@function map-deep-get($map, $keys...) {
+  @each $key in $keys {
+    $map: map-get($map, $key);
+  }
+
+  @return $map;
+}
+
+@function map-extend($map, $maps... /*, $deep */) {
+  $last: nth($maps, -1);
+  $deep: $last == true;
+  $max: if($deep, length($maps) - 1, length($maps));
+
+  @for $i from 1 through $max {
+    $current: nth($maps, $i);
+
+    @if not $deep {
+      $map: map-merge($map, $current);
+    } @else {
+      @each $key, $value in $current {
+        @if type-of($value) == "map" and type-of(map-get($map, $key)) == "map" {
+          $value: map-extend(map-get($map, $key), $value, true);
+        }
+
+        $map: map-merge($map, ($key: $value));
+      }
+    }
+  }
+
+  @return $map;
+}
